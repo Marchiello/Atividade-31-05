@@ -1,0 +1,62 @@
+public void defender(int valorDoAtaque) {
+        int defesaTotal = 0;
+        if (armadura != null) {
+            defesaTotal = armadura.calculaDefesa(this.resistencia);
+        } else {
+            defesaTotal = this.resistencia;
+        }
+        if (valorDoAtaque <= defesaTotal) {
+            System.out.println("O Ataque foi defendido!!!");
+        } else {
+            int danoCausado = valorDoAtaque - defesaTotal;
+            System.out.println("O dano causado foi de: " + danoCausado);
+            //this.vida = this.vida - danoCausado
+            this.vida -= danoCausado;
+            armadura.diminuiDurabilidade(danoCausado);
+            if (armadura.temDurabilidade() == false) {
+                this.armadura = new Armadura();
+            }
+        }
+    }
+
+------------------------------------------------------
+
+public int atacar(int valorDado, int defesaInimigo) {
+        int valorAtaque = 0;
+        if (valorDado < 2) { //falha critica
+            System.out.println("O Ataque falhou!!!");
+        } else {
+            if(arma != null){
+                valorAtaque = this.arma.calculaAtaque(valorAtaque);
+                arma.diminuiDurabilidade(defesaInimigo);
+                if(arma.temDurabilidade() == false){
+                    arma = new Arma();
+                }
+            }else{
+                valorAtaque = this.forca + valorDado;
+            }
+
+        }
+        return valorAtaque;
+    }
+
+    -------------------------------------------------------
+
+    private Armadura armadura;
+    private Arma arma;
+
+    public Armadura getArmadura() {
+        return armadura;
+    }
+
+    public void setArmadura(Armadura armadura) {
+        this.armadura = armadura;
+    }
+
+    public Arma getArma() {
+        return arma;
+    }
+
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
